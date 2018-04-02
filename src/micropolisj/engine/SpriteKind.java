@@ -13,14 +13,14 @@ package micropolisj.engine;
  */
 public enum SpriteKind
 {
-	TRA(1,5),
-	COP(2,8),
-	AIR(3,11),
-	SHI(4,8),
-	GOD(5,16),
-	TOR(6,3),
-	EXP(7,6),
-	BUS(8,4);
+	TRA(1,5), /*Train*/
+	COP(2,8), /*Helicopter*/
+	AIR(3,11),/*Airplane*/
+	SHI(4,8), /*ship*/
+	GOD(5,16),/*Monster*/
+	TOR(6,3), /*Tornado*/
+	EXP(7,6),/*explode*/
+	BUS(8,4); /*Bus*/
 
 	public final int objectId;
 	public final int numFrames;
