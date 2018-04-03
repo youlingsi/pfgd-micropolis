@@ -86,6 +86,8 @@ public class Micropolis
 	public int [][] fireRate;       //firestations reach- used for overlay graphs
 	int [][] policeMap;      //police stations- cleared and rebuilt each sim cycle
 	public int [][] policeMapEffect;//police stations reach- used for overlay graphs
+	float [][] eduMap; //schools and libraries. clear and rebuilt each sim cycle
+	public float [][] eduMapEffect; // schools and libraries -used for overlay graphs
 
 	/** For each 8x8 section of city, this is an integer between 0 and 64,
 	 * with higher numbers being closer to the center of the city. */
@@ -125,6 +127,8 @@ public class Micropolis
 	int nuclearCount;
 	int seaportCount;
 	int airportCount;
+	int libraryCount;
+	int schoolCount;
 
 	int totalPop;
 	int lastCityPop;
@@ -135,6 +139,8 @@ public class Micropolis
 	int lastTotalPop;
 	int lastFireStationCount;
 	int lastPoliceCount;
+	int lastSchoolCount;
+	int lastLibraryCount;
 
 	int trafficMaxLocationX;
 	int trafficMaxLocationY;
@@ -172,11 +178,14 @@ public class Micropolis
 	public double roadPercent = 1.0;
 	public double policePercent = 1.0;
 	public double firePercent = 1.0;
+	
 
 	int taxEffect = 7;
 	int roadEffect = 32;
 	int policeEffect = 1000;
 	int fireEffect = 1000;
+	float libEffect = 2f;
+	float schoolEffect = 1.2f;
 
 	int cashFlow; //net change in totalFunds in previous year
 
@@ -246,6 +255,7 @@ public class Micropolis
 		policeMapEffect = new int[smY][smX];
 		fireRate = new int[smY][smX];
 		comRate = new int[smY][smX];
+		eduMap = new float [smY][smX];
 
 		centerMassX = hX;
 		centerMassY = hY;
@@ -539,11 +549,14 @@ public class Micropolis
 		seaportCount = 0;
 		airportCount = 0;
 		powerPlants.clear();
+		libraryCount = 0;
+		schoolCount = 0;
 
 		for (int y = 0; y < fireStMap.length; y++) {
 			for (int x = 0; x < fireStMap[y].length; x++) {
 				fireStMap[y][x] = 0;
 				policeMap[y][x] = 0;
+				eduMap[y][x] = 0;
 			}
 		}
 	}
@@ -857,6 +870,7 @@ public class Micropolis
 					z = Math.min(300, z);
 					z -= policeMap[hy/4][hx/4];
 					z = Math.min(250, z);
+					z /= eduMap[hy/4][hx/4];
 					z = Math.max(0, z);
 					crimeMem[hy][hx] = z;
 
@@ -879,6 +893,7 @@ public class Micropolis
 			crimeAverage = 0;
 
 		fireMapOverlayDataChanged(MapState.POLICE_OVERLAY);
+		fireMapOverlayDataChanged(MapState.EDU_OVERLAY);
 	}
 
 	void doDisasters()

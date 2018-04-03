@@ -86,8 +86,10 @@ class MapScanner extends TileBehavior
 		case SEAPORT:
 			doSeaport();
 		case SCHOOL:
+			doSchool();
 			return;
 		case LIBRARY:
+			doLibrary();
 			return;
 		default:
 			assert false;
@@ -255,6 +257,58 @@ class MapScanner extends TileBehavior
 		}
 
 		city.policeMap[ypos/8][xpos/8] += z;
+	}
+	
+	//L.Added for Library
+	void doLibrary()
+
+	{
+		boolean powerOn = checkZonePower();
+		city.libraryCount++;
+		if ((city.cityTime % 8) == 0) {
+			repairZone(LIBRARY, 3);
+		}
+
+		float z;
+		if (powerOn) {
+			z = city.libEffect;
+		} else {
+			z = 1;
+		}
+
+		traffic.mapX = xpos;
+		traffic.mapY = ypos;
+		if (!traffic.findPerimeterRoad()) {
+			z = 1;
+		}
+
+		city.eduMap[ypos/8][xpos/8] += z;
+	}
+
+	
+	//L.Added for School
+	void doSchool()
+	{
+		boolean powerOn = checkZonePower();
+		city.schoolCount++;
+		if ((city.cityTime % 8) == 0) {
+			repairZone(SCHOOL, 3);
+		}
+
+		float z;
+		if (powerOn) {
+			z = city.schoolEffect;
+		} else {
+			z = 1;
+		}
+
+		traffic.mapX = xpos;
+		traffic.mapY = ypos;
+		if (!traffic.findPerimeterRoad()) {
+			z = 1;
+		}
+
+		city.eduMap[ypos/8][xpos/8] += z;
 	}
 
 	void doStadiumEmpty()
