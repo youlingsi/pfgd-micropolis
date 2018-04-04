@@ -150,8 +150,8 @@ public class TileConstants
 	static final char VBRDG1 = 949;
 	static final char VBRDG2 = 950;
 	static final char VBRDG3 = 951;
-	static final char SCHOOL = 960;
-	static final char LIBRARY = 969;
+	static final char SCHOOL = 961;
+	static final char LIBRARY = 977;
 	public static final char LAST_TILE = 974;
 
 

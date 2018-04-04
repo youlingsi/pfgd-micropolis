@@ -266,7 +266,7 @@ class MapScanner extends TileBehavior
 		boolean powerOn = checkZonePower();
 		city.libraryCount++;
 		if ((city.cityTime % 8) == 0) {
-			repairZone(LIBRARY, 3);
+			repairZone(LIBRARY, 4);
 		}
 
 		float z;
@@ -292,7 +292,7 @@ class MapScanner extends TileBehavior
 		boolean powerOn = checkZonePower();
 		city.schoolCount++;
 		if ((city.cityTime % 8) == 0) {
-			repairZone(SCHOOL, 3);
+			repairZone(SCHOOL, 4);
 		}
 
 		float z;

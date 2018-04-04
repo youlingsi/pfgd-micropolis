@@ -857,6 +857,14 @@ public class Micropolis
 				policeMapEffect[sy][sx] = policeMap[sy][sx];
 			}
 		}
+//		for (int sy = 0; sy < eduMap.length; sy++) {
+//			for (int sx = 0; sx < eduMap[sy].length; sx++) {
+//				if(eduMap[sy][sx] == 0) {
+//					eduMapEffect[sy][sx] = 1;
+//				}
+//				else {eduMapEffect[sy][sx] = eduMap[sy][sx];}
+//			}
+//		}
 
 		int count = 0;
 		int sum = 0;
