@@ -86,7 +86,7 @@ public class Micropolis
 	public int [][] fireRate;       //firestations reach- used for overlay graphs
 	int [][] policeMap;      //police stations- cleared and rebuilt each sim cycle
 	public int [][] policeMapEffect;//police stations reach- used for overlay graphs
-	float [][] eduMap; //schools and libraries. clear and rebuilt each sim cycle
+	float[][] eduMap; //schools and libraries. clear and rebuilt each sim cycle
 	public float [][] eduMapEffect; // schools and libraries -used for overlay graphs
 
 	/** For each 8x8 section of city, this is an integer between 0 and 64,
@@ -185,7 +185,7 @@ public class Micropolis
 	int policeEffect = 1000;
 	int fireEffect = 1000;
 	float libEffect = 2f;
-	float schoolEffect = 1.2f;
+	float schoolEffect = 1.5f;
 
 	int cashFlow; //net change in totalFunds in previous year
 
@@ -256,6 +256,7 @@ public class Micropolis
 		fireRate = new int[smY][smX];
 		comRate = new int[smY][smX];
 		eduMap = new float [smY][smX];
+		eduMapEffect = new float [smY][smX];
 
 		centerMassX = hX;
 		centerMassY = hY;
@@ -852,19 +853,20 @@ public class Micropolis
 		policeMap = smoothFirePoliceMap(policeMap);
 		policeMap = smoothFirePoliceMap(policeMap);
 
+
+
+
 		for (int sy = 0; sy < policeMap.length; sy++) {
 			for (int sx = 0; sx < policeMap[sy].length; sx++) {
 				policeMapEffect[sy][sx] = policeMap[sy][sx];
 			}
 		}
-//		for (int sy = 0; sy < eduMap.length; sy++) {
-//			for (int sx = 0; sx < eduMap[sy].length; sx++) {
-//				if(eduMap[sy][sx] == 0) {
-//					eduMapEffect[sy][sx] = 1;
-//				}
-//				else {eduMapEffect[sy][sx] = eduMap[sy][sx];}
-//			}
-//		}
+		
+		for (int sy = 0; sy < eduMap.length; sy++) {
+			for (int sx = 0; sx < eduMap[sy].length; sx++) {
+				eduMapEffect[sy][sx] = eduMap[sy][sx];
+			}
+		}
 
 		int count = 0;
 		int sum = 0;
@@ -878,7 +880,9 @@ public class Micropolis
 					z = Math.min(300, z);
 					z -= policeMap[hy/4][hx/4];
 					z = Math.min(250, z);
-					z /= eduMap[hy/4][hx/4];
+					if (eduMap[hy/4][hx/4]!=0) {
+						z /= eduMap[hy/4][hx/4];
+					}
 					z = Math.max(0, z);
 					crimeMem[hy][hx] = z;
 
@@ -952,6 +956,26 @@ public class Micropolis
 		for (int sy = 0; sy < smY; sy++) {
 			for (int sx = 0; sx < smX; sx++) {
 				int edge = 0;
+				if (sx > 0) { edge += omap[sy][sx-1]; }
+				if (sx + 1 < smX) { edge += omap[sy][sx+1]; }
+				if (sy > 0) { edge += omap[sy-1][sx]; }
+				if (sy + 1 < smY) { edge += omap[sy+1][sx]; }
+				edge = edge / 4 + omap[sy][sx];
+				nmap[sy][sx] = edge / 2;
+			}
+		}
+		return nmap;
+	}
+
+
+	private float[][] smoothEduMap(float[][] omap)
+	{
+		int smX = omap[0].length;
+		int smY = omap.length;
+		float[][] nmap = new float[smY][smX];
+		for (int sy = 0; sy < smY; sy++) {
+			for (int sx = 0; sx < smX; sx++) {
+				float edge = 0;
 				if (sx > 0) { edge += omap[sy][sx-1]; }
 				if (sx + 1 < smX) { edge += omap[sy][sx+1]; }
 				if (sy > 0) { edge += omap[sy-1][sx]; }

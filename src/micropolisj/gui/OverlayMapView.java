@@ -221,7 +221,12 @@ public class OverlayMapView extends JComponent
 
 		for (int y = 0; y < A.length; y++) {
 			for (int x = 0; x < A[y].length; x++) {
-				maybeDrawRect(gr, getCI((int)A[y][x]*100),x*24,y*24,24,24);
+				if (A[y][x] == 1) {
+					maybeDrawRect(gr, getCI(0),x*24,y*24,24,24);	
+				}
+				else {
+					maybeDrawRect(gr, getCI((int)A[y][x]*50),x*24,y*24,24,24);
+				}
 			}
 		}
 	}

@@ -276,12 +276,6 @@ class MapScanner extends TileBehavior
 			z = 1;
 		}
 
-		traffic.mapX = xpos;
-		traffic.mapY = ypos;
-		if (!traffic.findPerimeterRoad()) {
-			z = 1;
-		}
-
 		city.eduMap[ypos/8][xpos/8] += z;
 	}
 
@@ -299,12 +293,6 @@ class MapScanner extends TileBehavior
 		if (powerOn) {
 			z = city.schoolEffect;
 		} else {
-			z = 1;
-		}
-
-		traffic.mapX = xpos;
-		traffic.mapY = ypos;
-		if (!traffic.findPerimeterRoad()) {
 			z = 1;
 		}
 

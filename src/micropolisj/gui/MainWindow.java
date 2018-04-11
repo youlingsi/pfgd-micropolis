@@ -149,6 +149,7 @@ public class MainWindow extends JFrame
 		overlaysMenu.add(makeMapStateMenuItem("menu.overlays.POWER_OVERLAY", MapState.POWER_OVERLAY));
 		overlaysMenu.add(makeMapStateMenuItem("menu.overlays.FIRE_OVERLAY", MapState.FIRE_OVERLAY));
 		overlaysMenu.add(makeMapStateMenuItem("menu.overlays.POLICE_OVERLAY", MapState.POLICE_OVERLAY));
+		overlaysMenu.add(makeMapStateMenuItem("menu.overlays.EDU_OVERLAY", MapState.EDU_OVERLAY));
 
 		mapMenu.add(Box.createHorizontalGlue());
 		mapLegendLbl = new JLabel();
